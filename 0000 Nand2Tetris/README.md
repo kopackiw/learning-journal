@@ -18,14 +18,64 @@ Do programmers using a high-level language need to know anything about underlyin
 
 That's it, my first journey!
 
-### 26th January 2021
+### 0. Introduction
 
-#### 0. Introduction
-
-> Printing "Hello World" on the screen actually involves setting a bunch of pixels on your screen to be lighter or darker. You have to put the pixels that are lighter in a very special order to somehow represent the letter H and then the letter E. How did it happen? [...] The "how" is called an implementation and the "what" is an abstraction.[...] Due to abstraction, we can separate concerns. When we can separate, we can forget a lot of details about implementation. You can repeat that many times in many multiple layers of abstraction, one above the other.
+> Printing "Hello World" on the screen actually involves setting a bunch of pixels on your screen to be lighter or darker. You have to put the pixels that are lighter in a very special order to somehow represent the letter H and then the letter E. How did it happen? [...] The "how" is called an implementation and the "what" is an abstraction. [...] Due to abstraction, we can separate concerns. When we can separate, we can forget a lot of details about implementation. You can repeat that many times in many multiple layers of abstraction, one above the other.
 
 The multiple levels of abstraction idea is explained very well by this quote.
 
 > So here we are at the very low level of everything in, in applied computer science. And this actually is not computer science. This is electrical engineering and solid state physics. And all sorts of things that neither Norm and I understand much about. And therefore, we're going to obstruct the way of this hardware and focus instead on the most elementary logic gate that we can think of, which is called NAND.
 
 Great reference to previous part with abstraction, when we need to abstract over electrical engineering stuff.
+
+### 1. Boolean functions and gate logic
+
+#### State representation
+
+> You've probably all heard that computers internally only have 0s and 1s. It's simplest to have only two possible values that you need to maintain.
+
+##### N = 0
+
+Considering a zero-element state representation is not practical. It cannot be instantiated, as the state is not representable by definition. The equivalence in programming languages is `void` or `never`. Mathematically it is an empty set (`{}`).
+
+##### N = 1
+
+Considering a one-element state leads to confusion. It has one member and the information can be saved, but the meaning cannot be obtained. It is a similar concept to a set containing one element - `{ () }`. In programming languages it's called a `unit` or `()`.
+
+Example:
+
+1. There is a board with all facts about **existing** personal relationships **we know**, represented in a `<person1><person2>: ()` manner.
+2. Person A is in relationship with person B, denoted as `AB : ()` inscription on the board.
+3. **We also know** that person C **is not** in relationship with person D.
+4. If we try to denote it on the relationship board, we are facing with lack of "other representative" which can deny being in relationship. On the other hand, if we just skip this piece of information, we are rejecting **a fact that we know** about the world.
+
+Using a one-element state to represent a more complex world is not enough.
+
+##### N = 2
+
+True and false, one and zero, yin and yang - possible representations of state which is able to describe all world around us in a precise way. Remember `boolean`?
+
+##### N > 2
+
+True, false, and maybe? Zero, one, or a half? The state containing more elements is more precise, but as higher the abstraction (dimension) goes, the implementation (with our current technology) becomes more complex.
+
+#### Boolean expressions
+
+`Boolean` is a set with two elements: `{ True, False }`. The elements of the set are the simplest values and all operations can be evaluated either to `True` or `False`.
+
+A function is a transformation of an input into an output e.g. `AND`, `OR`, and `NOT`.
+
+> Once we have functions, we can start combining them.
+
+Example of operation composition from the course:
+
+```text
+  1 AND (0 OR (NOT (1)))
+= 1 AND (0 OR 0)
+= 1 AND 0
+= 0
+```
+
+It's true (pun!) with boolean world, but try to imagine a function composition with one function returning `void` element and the second expecting a `boolean` value on input.
+
+_My opinion is that programmers always should be aiming to "process" an input into the output by function composition._

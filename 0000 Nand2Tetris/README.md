@@ -61,7 +61,7 @@ True, false, and maybe? Zero, one, or a half? The state containing more elements
 
 #### Boolean expressions
 
-`Boolean` is a set with two elements: `{ True, False }`. The elements of the set are the simplest values and all operations can be evaluated either to `True` or `False`.
+`Boolean` is a set with two elements: `{ True, False }`. The elements of the set are the simplest values and all operations can be evaluated either to `True` (`1`) or `False` (`0`).
 
 A function is a transformation of an input into an output e.g. `AND`, `OR`, and `NOT`.
 
@@ -79,3 +79,38 @@ Example of operation composition from the course:
 It's true (pun!) with boolean world, but try to imagine a function composition with one function returning `void` element and the second expecting a `boolean` value on input.
 
 _My opinion is that programmers always should be aiming to "process" an input into the output by function composition._
+
+#### Boolean algebra
+
+> In its most general form, algebra is the study of mathematical symbols and the rules for manipulating these symbols.
+
+Relaying on the cite above, we can assume that algebra is all around us, as all civilization is based on symbols. They might be letters, digits etc. All what's needed to build or to share knowledge.
+
+##### Commutative law
+
+In algebra there may exist some laws. Binary function like `AND` and `OR` have some really nice trait - they are commutative. The order of operands does not matter.
+
+`x OR y = y OR x`
+`x AND y = y AND x`
+
+Worth to remember that it's a trait of a single function rather than a whole universe. In the realm of Rational numbers, addition is commutative, and division is not.
+
+##### Associative law
+
+Another real cool law is associativity. It can be remembered as "I do not need parenthesis".
+
+`x AND (y AND z) = (x AND y) AND z`
+`x OR (y OR z) = (x OR y) OR z`
+
+##### Distributive law
+
+Third law one can apply to boolean algebra is distributive law.
+`x OR (y AND z) = (x OR y) AND (x OR z)`
+`x AND (y OR z) = (x AND y) OR (x AND z)`
+
+##### De Morgan laws
+
+Should sound familiar to all CS student which took Logics 101.
+
+`NOT(x AND y) = NOT(x) OR NOT(y)`
+`NOT(x OR y) = NOT(x) AND NOT(y)`

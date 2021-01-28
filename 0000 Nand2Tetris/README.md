@@ -31,7 +31,7 @@ The multiple levels of abstraction idea is explained very well by this quote.
 
 > So here we are at the very low level of everything in, in applied computer science. And this actually is not computer science. This is electrical engineering and solid state physics. And all sorts of things that neither Norm and I understand much about. And therefore, we're going to obstruct the way of this hardware and focus instead on the most elementary logic gate that we can think of, which is called NAND.
 
-Great reference to previous part with abstraction, when we need to abstract over electrical engineering stuff.
+Great reference to previous part with abstraction, when one need to abstract over electrical engineering stuff.
 
 </details>
 
@@ -176,5 +176,62 @@ As there are already `NOT` and `NAND` gates available, a the `AND` gate can be b
 ##### Implementing OR gate
 
 Again, one of laws can be used to obtain an `OR` gate. Starting from de Morgan law: `NOT(x AND y) = NOT(x) OR NOT(y)`, let's introduce `a = NOT(x)` and `b = NOT(y)`, hence `NOT(NOT(a) AND NOT(b)) = a OR b`. It can be simplified to `NAND(NOT(a), NOT(b)) = a OR b`.
+
+</details>
+
+<details>
+   <summary>Building more complex logic gates</summary>
+
+#### Building more complex logic gates
+
+The goal of this subchapter is to build working `XOR`, `MUX`, and `DMUX` gates using all gates build previously.
+
+##### Implementing XOR gate
+
+The `XOR` gate evaluates to `1` only if the operands have opposite values.
+
+| a   | b   | XOR(a, b) |
+| --- | --- | --------- |
+| 0   | 0   | 0         |
+| 0   | 1   | 1         |
+| 1   | 0   | 1         |
+| 1   | 1   | 0         |
+
+To be evaluated to `1`, the second row (`NOT(a) AND b`) or third row (`a AND NOT(b)`) must be evaluated. Hence:
+
+`XOR(a,b) = (NOT(a) AND b) OR (a AND NOT(b))` // `(a AND NOT(b)) = c`
+`XOR(a,b) = (NOT(a) AND b) OR c` // using distributive law
+`XOR(a,b) = (NOT(a) OR c) AND (b OR c)`
+`XOR(a,b) = (NOT(a) OR (a AND NOT(b))) AND (b OR (a AND NOT(b)))` // using distributive law twice
+`XOR(a,b) = ((NOT(a) OR a) AND (NOT(a) OR NOT(b))) AND ((b OR a) AND (b OR NOT(b)))`
+`XOR(a,b) = (1 OR (a NAND b)) AND ((b OR a) AND 1)`
+`XOR(a,b) = (a NAND b)) AND (b OR a)`
+
+They must not be both ones (`a NAND b`) and they must evaluate to 1 (`b OR a`).
+
+##### Implementing MUX gate
+
+A multiplexer chip is responsible for switching between two signals based on provided flag `s`.
+
+| s   | MUX(a,b,s) |
+| --- | ---------- |
+| 0   | a          |
+| 1   | b          |
+
+It can either (`OR`) return `a` when the signal is 0 (`NOT(s)`) or return `b` when the signal is 1 (`s`). So the following expressions implements the `MUX` interface.
+
+`(NOT(s) AND a) OR (s AND b)`
+
+##### Implementing DMUX gate
+
+A demultiplexer chip is the reverse of the previous one. Based on provided flag `s`, it channels provided input onto one of two outputs.
+
+| s   | DMUX(a,s) |
+| --- | --------- |
+| 0   | [a, 0]    |
+| 1   | [0, a]    |
+
+Similarly to the previous gate, the input must be paired with both `s` and `NOT(s)`. Due to the law of excluded middle, one of the values (`s` or `NOT(s)`) must be true. The "truthy" one will keep the value `a` after being paired, the "falsy" one will evaluate to `0`. To sum up, following code is a demultiplexer:
+`[x, y] = [NOT(s) AND a, s AND a]`
 
 </details>

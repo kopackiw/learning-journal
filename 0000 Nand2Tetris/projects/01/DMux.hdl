@@ -1,0 +1,9 @@
+CHIP DMux {
+    IN in, sel;
+    OUT a, b;
+
+    PARTS:
+    Not(in=sel, out=offSel);
+    And(a=in, b=offSel, out=a); // valueGivenOffSelector
+    And(a=in, b=sel, out=b); // valueGivenOnSelector
+}

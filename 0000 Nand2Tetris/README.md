@@ -200,7 +200,7 @@ The `XOR` gate evaluates to `1` only if the operands have opposite values.
 To be evaluated to `1`, the second row (`NOT(a) AND b`) or third row (`a AND NOT(b)`) must be evaluated. Hence:
 
 ```text
-XOR(a,b) = (NOT(a) AND b) OR (a AND NOT(b))` // `(a AND NOT(b)) = c
+XOR(a,b) = (NOT(a) AND b) OR (a AND NOT(b)) // (a AND NOT(b)) = c
 XOR(a,b) = (NOT(a) AND b) OR c // using distributive law
 XOR(a,b) = (NOT(a) OR c) AND (b OR c)
 XOR(a,b) = (NOT(a) OR (a AND NOT(b))) AND (b OR (a AND NOT(b))) // using distributive law twice

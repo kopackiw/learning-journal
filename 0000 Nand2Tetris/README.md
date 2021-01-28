@@ -20,6 +20,11 @@ That's it, my first journey!
 
 ### 0. Introduction
 
+<details>
+   <summary>Abstraction and implementation</summary>
+
+#### Abstraction and implementation
+
 > Printing "Hello World" on the screen actually involves setting a bunch of pixels on your screen to be lighter or darker. You have to put the pixels that are lighter in a very special order to somehow represent the letter H and then the letter E. How did it happen? [...] The "how" is called an implementation and the "what" is an abstraction. [...] Due to abstraction, we can separate concerns. When we can separate, we can forget a lot of details about implementation. You can repeat that many times in many multiple layers of abstraction, one above the other.
 
 The multiple levels of abstraction idea is explained very well by this quote.
@@ -28,7 +33,12 @@ The multiple levels of abstraction idea is explained very well by this quote.
 
 Great reference to previous part with abstraction, when we need to abstract over electrical engineering stuff.
 
+</details>
+
 ### 1. Boolean functions and gate logic
+
+<details>
+   <summary>State representation</summary>
 
 #### State representation
 
@@ -59,6 +69,11 @@ True and false, one and zero, yin and yang - possible representations of state w
 
 True, false, and maybe? Zero, one, or a half? The state containing more elements is more precise, but as higher the abstraction (dimension) goes, the implementation (with our current technology) becomes more complex.
 
+</details>
+
+<details>
+   <summary>Boolean expressions</summary>
+
 #### Boolean expressions
 
 `Boolean` is a set with two elements: `{ True, False }`. The elements of the set are the simplest values and all operations can be evaluated either to `True` (`1`) or `False` (`0`).
@@ -79,6 +94,11 @@ Example of operation composition from the course:
 It's true (pun!) with boolean world, but try to imagine a function composition with one function returning `void` element and the second expecting a `boolean` value on input.
 
 _My opinion is that programmers always should be aiming to "process" an input into the output by function composition._
+
+</details>
+
+<details>
+   <summary>Boolean algebra</summary>
 
 #### Boolean algebra
 
@@ -114,3 +134,5 @@ Should sound familiar to all CS student which took Logics 101.
 
 `NOT(x AND y) = NOT(x) OR NOT(y)`
 `NOT(x OR y) = NOT(x) AND NOT(y)`
+
+</details>

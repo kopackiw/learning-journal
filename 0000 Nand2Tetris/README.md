@@ -199,13 +199,15 @@ The `XOR` gate evaluates to `1` only if the operands have opposite values.
 
 To be evaluated to `1`, the second row (`NOT(a) AND b`) or third row (`a AND NOT(b)`) must be evaluated. Hence:
 
-`XOR(a,b) = (NOT(a) AND b) OR (a AND NOT(b))` // `(a AND NOT(b)) = c`
-`XOR(a,b) = (NOT(a) AND b) OR c` // using distributive law
-`XOR(a,b) = (NOT(a) OR c) AND (b OR c)`
-`XOR(a,b) = (NOT(a) OR (a AND NOT(b))) AND (b OR (a AND NOT(b)))` // using distributive law twice
-`XOR(a,b) = ((NOT(a) OR a) AND (NOT(a) OR NOT(b))) AND ((b OR a) AND (b OR NOT(b)))`
-`XOR(a,b) = (1 OR (a NAND b)) AND ((b OR a) AND 1)`
-`XOR(a,b) = (a NAND b)) AND (b OR a)`
+```text
+XOR(a,b) = (NOT(a) AND b) OR (a AND NOT(b))` // `(a AND NOT(b)) = c
+XOR(a,b) = (NOT(a) AND b) OR c // using distributive law
+XOR(a,b) = (NOT(a) OR c) AND (b OR c)
+XOR(a,b) = (NOT(a) OR (a AND NOT(b))) AND (b OR (a AND NOT(b))) // using distributive law twice
+XOR(a,b) = ((NOT(a) OR a) AND (NOT(a) OR NOT(b))) AND ((b OR a) AND (b OR NOT(b)))
+XOR(a,b) = (1 OR (a NAND b)) AND ((b OR a) AND 1)
+XOR(a,b) = (a NAND b)) AND (b OR a)
+```
 
 They must not be both ones (`a NAND b`) and they must evaluate to 1 (`b OR a`).
 

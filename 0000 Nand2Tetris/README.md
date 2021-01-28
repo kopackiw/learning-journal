@@ -237,3 +237,12 @@ Similarly to the previous gate, the input must be paired with both `s` and `NOT(
 `[x, y] = [NOT(s) AND a, s AND a]`
 
 </details>
+
+<details>
+   <summary>Building 16-bit variants gates</summary>
+
+#### Building 16-bit variants gates
+
+`NOT16`, `AND16`, `OR16` are pretty straightforward to build. All pair of bits must be "notted", "anded", or "ored" together and pass to the output. I was hoping that `MUX16` will be a small challenge, but it works similar to the gates above.
+
+</details>

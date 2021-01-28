@@ -136,3 +136,45 @@ Should sound familiar to all CS student which took Logics 101.
 `NOT(x OR y) = NOT(x) AND NOT(y)`
 
 </details>
+
+<details>
+   <summary>Building simple logic gates</summary>
+
+#### Building simple logic gates
+
+One gate to rule them all - let me introduce a `NAND` gate. It's a building block for all other gates. Starting only with the `NAND` gate, it is the first task in this course to implement `NOT`, `AND`, and `OR` gates.
+
+##### Implementing NOT gate
+
+Let's start with a description of both `NAND` and `NOT` gate.
+
+| a   | b   | NAND(a,b) |
+| --- | --- | --------- |
+| 0   | 0   | 1         |
+| 0   | 1   | 1         |
+| 1   | 0   | 1         |
+| 1   | 1   | 0         |
+
+| a   | NOT(a) |
+| --- | ------ |
+| 0   | 1      |
+| 1   | 0      |
+
+An interface of the `NOT` gate requires 1 input, but the `NAND` gate requires two of them. The signal must be therefore split into two inputs. The `NAND` gate looks like this:
+
+| a   | b (=a) | NAND(a,b) |
+| --- | ------ | --------- |
+| 0   | 0      | 1         |
+| 1   | 1      | 0         |
+
+Both tables (`NOT(a)` and `NAND(a,b=a)`) are equal now.
+
+##### Implementing AND gate
+
+As there are already `NOT` and `NAND` gates available, a the `AND` gate can be build by using double negation law (`NOT(NOT(a)) == a`). Therefore: `AND(a,b) = NOT(NOT(AND(a))) = NOT(NAND(a))`.
+
+##### Implementing OR gate
+
+Again, one of laws can be used to obtain an `OR` gate. Starting from de Morgan law: `NOT(x AND y) = NOT(x) OR NOT(y)`, let's introduce `a = NOT(x)` and `b = NOT(y)`, hence `NOT(NOT(a) AND NOT(b)) = a OR b`. It can be simplified to `NAND(NOT(a), NOT(b)) = a OR b`.
+
+</details>

@@ -246,3 +246,32 @@ Similarly to the previous gate, the input must be paired with both `s` and `NOT(
 `NOT16`, `AND16`, `OR16` are pretty straightforward to build. All pair of bits must be "notted", "anded", or "ored" together and pass to the output. I was hoping that `MUX16` will be a small challenge, but it works similar to the gates above.
 
 </details>
+
+<details>
+   <summary>Building multi-way variants gates</summary>
+
+#### Building multi-way variants gates
+
+In this subchapter there will be introduced new multi-way gates.
+
+##### Implementing Or8Way gate
+
+Exercises rather simply - one need to fold / reduce all bits with `OR` function. Done with 7 `OR` gates.
+
+##### Implementing Mux4Way16 gate
+
+Four inputs and two bits acting like flags. I've come with an idea of splitting incoming signals into pairs (based on the flag on a given index) and "MUXing" them. Then, the "winners" will be "MUXed" together with flags coming from the other index. During implementation, I've made a mistake with indexes (it was indexed from right-most bit and not left-most one).
+
+##### Implementing Mux8Way16 gate
+
+Concept identically with the previous one. The difference is we group not two of inputs, but four of them, and take two winners to `MUX16`. With right indexing in mind, I've accomplished it on a first attempt. Alternative implementation is to use first 4 `MUX16` on 4 pairs, and then run `MUX4WAY16` with four "winners".
+
+##### Implementing DMux4Way gate
+
+The trick of "combining" values with the selector on the corresponding index does the trick. Since there were two control flags, they had to be "anded" respectively to return `1` for one selector and `0` for the other.
+
+##### Implementing DMux8Way gate
+
+I've stuck. Tried to do `DMux4Way` twice (on (a,b,c,d) and (e,f,g,h) outputs) and then override `a` and `e` outputs with `DMUX`. It is not allowed. I've looked at implementation in `DMux4Way` and thought it will be too cumbersome to how so many `AND` gates. I've known that I've missed something. After looking on the Internet, I've spot a solution similar to my original concept, but the one difference was that `DMUX` was on first line rather than on last one. Due to that, we can pass input to proper `a` or `e` channel. I've updated this solution as well as `DMux4Way`.
+
+</details>

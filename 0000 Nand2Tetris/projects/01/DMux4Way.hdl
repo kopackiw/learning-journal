@@ -1,0 +1,23 @@
+CHIP DMux4Way {
+    IN in, sel[2];
+    OUT a, b, c, d;
+
+    PARTS:
+    DMux(in=in, sel=sel[1], a=inOnA, b=inOnC);
+    DMux(in=inOnA, sel=sel[0], a=a, b=b);
+    DMux(in=inOnC, sel=sel[0], a=c, b=d);
+
+    // BEFORE:
+    // Not(in=sel[0], out=offSel0);
+    // Not(in=sel[1], out=offSel1);
+
+    // And(a=offSel0, b=offSel1, out=selectorForA);
+    // And(a=sel[0] , b=offSel1, out=selectorForB);
+    // And(a=offSel0, b=sel[1] , out=selectorForC);
+    // And(a=sel[0] , b=sel[1] , out=selectorForD);
+
+    // And(a=in, b=selectorForA, out=a);
+    // And(a=in, b=selectorForB, out=b);
+    // And(a=in, b=selectorForC, out=c);
+    // And(a=in, b=selectorForD, out=d);
+}

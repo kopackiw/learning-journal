@@ -307,3 +307,29 @@ Let use `HalfAdder` with two first inputs. Returned value of `carry` must be rem
 Addition of 16 bits in pretty straightforward as all we need is to pin together 16 bits with full adders, moving `carry` from right to left, bit by bit, throwing away `carry` first from the left.
 
 </details>
+
+<details>
+   <summary>Negative numbers</summary>
+
+#### Negative numbers
+
+At the beginning, the concept with 2's complement system bothered me. But when it was presented as follows `... 6, 7, -8 (8), -7 (9), -6 (10), ...`.
+
+Task: add (-2) and (-3).
+(-2) represents the same as 16 - 2 = 14, so `1110`.
+(-3) represents the same as 16 - 3 = 13, so `1101`.
+
+```math
+  1110_2
++ 1101_2
+= 1011_2
+```
+
+`1011` represents 11 (when unsigned), but also 16 - 11 = -5 (when signed).
+The idea of adding two number that will result in overflow is beautiful!
+
+##### Implementing Inc16
+
+Initial idea of writing 16 `FullAdder`s I throw into a bin. I did not know the syntax for expressing a bus with only the rightmost bit set to one, so I've searched and found. Armed with a new syntax knowledge, I'm moving further!
+
+</details>

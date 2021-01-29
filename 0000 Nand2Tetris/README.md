@@ -333,3 +333,49 @@ The idea of adding two number that will result in overflow is beautiful!
 Initial idea of writing 16 `FullAdder`s I throw into a bin. I did not know the syntax for expressing a bus with only the rightmost bit set to one, so I've searched and found. Armed with a new syntax knowledge, I'm moving further!
 
 </details>
+
+<details>
+   <summary>Arithmetic logic unit</summary>
+
+### Arithmetic logic unit
+
+I've always been curious about how the ALU processes all those function, which tends to be stored "as bits". How a sequence of bits can manipulate another?
+
+This table shown below blew my mind! This sequence of bits is just a set of control flags which composed in a specific way results in a given function!
+
+<img width="200" alt="Screenshot 2021-01-29 at 21 57 54" src="https://user-images.githubusercontent.com/26244440/106326794-59aee400-627d-11eb-996e-bd887214c2ea.png">
+
+`zx` - omit x input and pass 0
+`nx` - negate x input
+`f` - do logical AND (when 0) or ADD (when 1)
+
+### Implementing ALU
+
+After some minutes of self-doubt, I was enlightened! It's `MUX16` everywhere! I must do both operations (e.g. logic sum and logic and) and then check via MUX which result pass further. I've had a problem with outputting control flags due to syntax error e.g. using sub bus of internal node is not allowed:
+
+```text
+   Mux16(a=afterFunctionCheck, b=negatedOutput, sel=no, out=result);
+
+   Or8Way(in=resultRight, out=isFirstSevenBitsNotZeroes);
+   Not(in=isFirstSevenBitsNotZeroes, out=isFirstSevenBitsZeroes);
+   Or8Way(in=resultLeft, out=isLastSevenBitsNotZeroes);
+   Not(in=isLastSevenBitsNotZeroes, out=isLastSevenBitsZeroes);
+
+   And(a=isFirstSevenBitsZeroes, b=isLastSevenBitsZeroes, out=zr);
+   And(a=result[15], b=true, out=ng);
+   Or16(a=result, b=false, out=out);
+```
+
+Again, after checking on the Internet, I found the correct syntax and adjust solution to:
+
+```text
+   Mux16(a=afterFunctionCheck, b=negatedOutput, sel=no, out=out, out[8..15]=resultLeft, out[0..7]=resultRight, out[15]=ng);
+
+   Or8Way(in=resultRight, out=isFirstSevenBitsNotZeroes);
+   Not(in=isFirstSevenBitsNotZeroes, out=isFirstSevenBitsZeroes);
+   Or8Way(in=resultLeft, out=isLastSevenBitsNotZeroes);
+   Not(in=isLastSevenBitsNotZeroes, out=isLastSevenBitsZeroes);
+   And(a=isFirstSevenBitsZeroes, b=isLastSevenBitsZeroes, out=zr);
+```
+
+</details>

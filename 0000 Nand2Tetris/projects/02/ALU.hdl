@@ -1,0 +1,40 @@
+CHIP ALU {
+    IN  
+        x[16], y[16],
+        zx,
+        nx,
+        zy,
+        ny,
+        f,
+        no;
+
+    OUT 
+        out[16],
+        zr,
+        ng;
+
+    PARTS:
+    Mux16(a=x, b=false, sel=zx, out=xAfterZeroCheck);
+    Not16(in=xAfterZeroCheck, out=xNegated);
+    Mux16(a=xAfterZeroCheck, b=xNegated, sel=nx, out=xAfterNegationCheck);
+
+    Mux16(a=y, b=false, sel=zy, out=yAfterZeroCheck);
+    Not16(in=yAfterZeroCheck, out=yNegated);
+    Mux16(a=yAfterZeroCheck, b=yNegated, sel=ny, out=yAfterNegationCheck);
+
+    And16(a=xAfterNegationCheck, b=yAfterNegationCheck, out=XandY);
+    Add16(a=xAfterNegationCheck, b=yAfterNegationCheck, out=XsumY);
+
+    Mux16(a=XandY, b=XsumY, sel=f, out=afterFunctionCheck);
+
+    Not16(in=afterFunctionCheck, out=negatedOutput);
+
+    Mux16(a=afterFunctionCheck, b=negatedOutput, sel=no, out=out, out[8..15]=resultLeft, out[0..7]=resultRight, out[15]=ng);
+
+    Or8Way(in=resultRight, out=isFirstSevenBitsNotZeroes);
+    Not(in=isFirstSevenBitsNotZeroes, out=isFirstSevenBitsZeroes);
+    Or8Way(in=resultLeft, out=isLastSevenBitsNotZeroes);
+    Not(in=isLastSevenBitsNotZeroes, out=isLastSevenBitsZeroes);
+
+    And(a=isFirstSevenBitsZeroes, b=isLastSevenBitsZeroes, out=zr);
+}

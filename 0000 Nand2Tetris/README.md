@@ -275,3 +275,35 @@ The trick of "combining" values with the selector on the corresponding index doe
 I've stuck. Tried to do `DMux4Way` twice (on (a,b,c,d) and (e,f,g,h) outputs) and then override `a` and `e` outputs with `DMUX`. It is not allowed. I've looked at implementation in `DMux4Way` and thought it will be too cumbersome to how so many `AND` gates. I've known that I've missed something. After looking on the Internet, I've spot a solution similar to my original concept, but the one difference was that `DMUX` was on first line rather than on last one. Due to that, we can pass input to proper `a` or `e` channel. I've updated this solution as well as `DMux4Way`.
 
 </details>
+
+### 2. Boolean arithmetic and ALU
+
+<details>
+   <summary>Binary numbers</summary>
+
+#### Binary numbers
+
+Humans are used to decimal system when counting. But there are other ones! We use full 60 when talking about a minute or hour. Half an hour is not 5 minutes, but 30. As there are a lot of resources talking about binary numbers, I will not do the same here. Finishing with some tip - a person can count up to 1 023 with 10 fingers just by using binary system.
+
+</details>
+
+<details>
+   <summary>Binary addition</summary>
+
+#### Binary addition
+
+On the way to ALU!
+
+##### Implementing HalfAdder
+
+`HalfAdder` produces a tuple of sum of two inputs, as well as carry from that addition. When adding two bits, the result will be `1` if and only if these two bits are opposite signs, so `XOR` gate must be used. The carry will be present if and only if both two bits will be equal to `1`, so `AND` gate will be used.
+
+##### Implementing FullAdder
+
+Let use `HalfAdder` with two first inputs. Returned value of `carry` must be remembered. Returned value of `sum` must be pinned with a third input into `HalfAdder`. The resulting `sum` is the final one. One needs to check whether first `OR` second `carry` has return `1` - this will be final `carry`.
+
+##### Implementing Add16
+
+Addition of 16 bits in pretty straightforward as all we need is to pin together 16 bits with full adders, moving `carry` from right to left, bit by bit, throwing away `carry` first from the left.
+
+</details>

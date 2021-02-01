@@ -1,4 +1,4 @@
-# Programming Rust
+# Rust
 
 Memory-safety, speed of C and functional programming concepts sounds like a dream mix, but this is a good description of Rust. Due to rising popularity and continuos language improvements it is a good candidate to be learned as next thing. Strongly agree with the statement that Rust is a language for next 40 years.
 

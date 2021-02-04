@@ -428,8 +428,8 @@ I did not know how to obtain value from DFF and pass it to output, but it was as
 
 </details>
 
-<!-- <details>
-   <summary>Memory units</summary> -->
+<details>
+   <summary>Memory units</summary>
 
 #### Memory units
 
@@ -469,4 +469,13 @@ Following the instruction:
 
 The same steps as above are required to successfully implement bigger chunks of RAM. An additional parameter needed to be passed to lesser RAM part (already built) are correct slices of addresses.
 
-<!-- </details> -->
+</details>
+
+<details>
+   <summary>Counters</summary>
+
+#### Counters
+
+Program counter is responsible for keeping on track number of next instruction to fetch. This used in the course has three control flags - reset, inc and load. I do not know why there is a distinction between reset and load, as reset and load 0 are isomorphic instructions. I've had a problem during implementation with execution order of given flags, but after 3rd attempt tests were green.
+
+</details>

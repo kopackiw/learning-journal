@@ -264,7 +264,7 @@ Four inputs and two bits acting like flags. I've come with an idea of splitting 
 
 ##### Implementing Mux8Way16 gate
 
-Concept identically with the previous one. The difference is we group not two of inputs, but four of them, and take two winners to `MUX16`. With right indexing in mind, I've accomplished it on a first attempt. Alternative implementation is to use first 4 `MUX16` on 4 pairs, and then run `MUX4WAY16` with four "winners".
+Concept identically with the previous one. The difference is we group not twos of inputs, but fours, and take two winners to `MUX16`. With right indexing in mind, I've accomplished it on a first attempt. Alternative implementation is to use first 4 `MUX16` on 4 pairs, and then run `MUX4WAY16` with four "winners".
 
 ##### Implementing DMux4Way gate
 
@@ -343,7 +343,7 @@ I've always been curious about how the ALU processes all those function, which t
 
 This table shown below blew my mind! This sequence of bits is just a set of control flags which composed in a specific way results in a given function!
 
-<img width="200" alt="Screenshot 2021-01-29 at 21 57 54" src="https://user-images.githubusercontent.com/26244440/106326794-59aee400-627d-11eb-996e-bd887214c2ea.png">
+<img width="200" src="https://user-images.githubusercontent.com/26244440/106326794-59aee400-627d-11eb-996e-bd887214c2ea.png">
 
 `zx` - omit x input and pass 0
 `nx` - negate x input
@@ -376,6 +376,53 @@ Again, after checking on the Internet, I found the correct syntax and adjust sol
    Or8Way(in=resultLeft, out=isLastSevenBitsNotZeroes);
    Not(in=isLastSevenBitsNotZeroes, out=isLastSevenBitsZeroes);
    And(a=isFirstSevenBitsZeroes, b=isLastSevenBitsZeroes, out=zr);
+```
+
+</details>
+
+### 3. Sequential logic
+
+<details>
+   <summary>Sequential logic</summary>
+
+#### Sequential logic
+
+Unlike mathematics, which does not take time into account during calculation, electronic parts of hardware must do. But how to merge theoretical foundations, which operates on discrete values with electrical signals flowing through the time? The time dimension must be sampled, so one can see it as a discrete value too. Good sampling however must be done with not too large frequency, as there still will be some delays. It is illustrated in the picture below.
+
+<img width="600" src="https://user-images.githubusercontent.com/26244440/106935107-3a033a00-671b-11eb-8dd0-adb52280f0f4.png">
+
+Gray area is time needed by a system to stabilize. When it does, the values on outputs can be considered as final.
+
+</details>
+
+<details>
+   <summary>Flip-flops and bit registers</summary>
+
+#### Flip-flops and bit registers
+
+A flip-flop is just a way of "pass" the current value into the next discrete time value. It always takes a new input in each cycle and propagate them as output in a next cycle.
+
+There are two differences between a flip-flop and a bit register:
+
+1. In the flip-flop, the value is being "remembered" always, but in register - only when the "load" is set to 1;
+2. Flip-flop will store value only for one cycle, when register may hold it forever.
+
+#### Implementing bit register
+
+This is a tricky one. Although the specification is really simple, lack of HDL knowledge was a big problem for me again.
+
+My initial implementation was:
+
+```text
+   Mux(a=valueFromPreviousTick, b=in, sel=load, out=valueToStoreInCurrentTick);
+   DFF(in=valueToStoreInCurrentTick, out=valueFromPreviousTick);
+```
+
+I did not know how to obtain value from DFF and pass it to output, but it was as simple as:
+
+```text
+    Mux(a=valueFromPreviousTick, b=in, sel=load, out=valueToStoreInCurrentTick);
+    DFF(in=valueToStoreInCurrentTick, out=valueFromPreviousTick, out=out);
 ```
 
 </details>

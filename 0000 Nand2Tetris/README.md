@@ -407,6 +407,8 @@ There are two differences between a flip-flop and a bit register:
 1. In the flip-flop, the value is being "remembered" always, but in register - only when the "load" is set to 1;
 2. Flip-flop will store value only for one cycle, when register may hold it forever.
 
+The bit register allows to keep first state!
+
 #### Implementing bit register
 
 This is a tricky one. Although the specification is really simple, lack of HDL knowledge was a big problem for me again.
@@ -418,11 +420,53 @@ My initial implementation was:
    DFF(in=valueToStoreInCurrentTick, out=valueFromPreviousTick);
 ```
 
-I did not know how to obtain value from DFF and pass it to output, but it was as simple as:
+I did not know how to obtain value from DFF and pass it to output, but it was as simple as setting `out=out`:
 
 ```text
-    Mux(a=valueFromPreviousTick, b=in, sel=load, out=valueToStoreInCurrentTick);
     DFF(in=valueToStoreInCurrentTick, out=valueFromPreviousTick, out=out);
 ```
 
 </details>
+
+<!-- <details>
+   <summary>Memory units</summary> -->
+
+#### Memory units
+
+Memory is one out of three components in classic von Neumann architecture. It is a home place both for instructions and data. There exists a memory hierarchy, where the top one are the smallest, fastest and the most expensive (cache), trough RAM, to the slowest and cheapest secondary memory (e.g. discs).
+
+#### Register
+
+The bit register implemented in the previous subchapter allows only for manipulating of 1 bit data. For maintainability and performance there is a tendency to group fixed numbers of bits (called width) into a register. They can be stacked together into larger units of memory.
+
+#### Implementing register
+
+In order to build a 16-bit word register, the `load` signal as well as a corresponding bit of 16-bit entry must be propagated to every each of 16 "bit registers".
+
+#### RAM
+
+RAM is just a long array of registers. One register can be read or written to at a time. In order to read we need to pass an `address` of the register and the content of it will be returned. If a write is needed, one can pass along the `address` the new `in` value and set to load to `1` ("writing" mode).
+
+<img width="550" src="https://user-images.githubusercontent.com/26244440/106949176-eb5e9b80-672c-11eb-83a5-a3e1b8c83463.png">
+
+#### Implementing RAM8
+
+Following the instruction:
+
+1. Memory of 8 registers, each 16 bit-wide.
+
+   - Specify 8 register chips; each of them will have output called `out${i}`.
+
+2. Out holds the value stored at the memory location specified by address.
+
+   - Use a `Mux8Way16` to select one out of eight registers via `address` flag and propagate the result to output.
+
+3. If load==1, then the in value is loaded into the memory location specified by address.
+
+   - Use `DMux8Way` to calculate a `load` flag for each of registers. Then feed `in` into all registers. Only one of them, on corresponding `address` will receive the true value of `load`, others will receive `0`.
+
+#### Implementing RAM64, RAM512, RAM4K, RAM16K
+
+The same steps as above are required to successfully implement bigger chunks of RAM. An additional parameter needed to be passed to lesser RAM part (already built) are correct slices of addresses.
+
+<!-- </details> -->

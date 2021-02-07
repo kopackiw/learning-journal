@@ -479,3 +479,52 @@ The same steps as above are required to successfully implement bigger chunks of 
 Program counter is responsible for keeping on track number of next instruction to fetch. This used in the course has three control flags - reset, inc and load. I do not know why there is a distinction between reset and load, as reset and load 0 are isomorphic instructions. I've had a problem during implementation with execution order of given flags, but after 3rd attempt tests were green.
 
 </details>
+
+### 4. Machine language
+
+<details>
+   <summary>Machine language overview</summary>
+
+#### Machine language overview
+
+A computer is a universal programmable machine, not limited to perform only one role. It is achieved due to the concept that one hardware can run multiple software. A computer program is only a set of instruction (represented as binary), run one by one in order. To perform this operation, the computer needs:
+
+- a way of translating binary into one of operation (e.g. addition can be `00001010`);
+- a counter which tells what operation to execute next;
+- how to fetch and persist data from memory (addressing).
+
+#### Mnemonics
+
+A mnemonic is a symbolic form of instruction. It is dedicated for humans to better understand a program and does not exist "per se" in the computer. Instructions in symbolic representation are translated to bit representation via **assembler**.
+
+E.g. instruction: `0100010` | `0011` | `0010` could mean: `ADD` | `R3` | `R2`.
+
+</details>
+
+<details>
+   <summary>Machine language elements</summary>
+
+#### Machine language elements
+
+Machine language is an interface between software and hardware. It specifies what operation can be done, on what do they operate and how does the program control look like.
+
+#### Addressing modes
+
+Operations can be performed on various types of operands:
+
+- registers e.g. `ADD R1, R2`
+- direct addresses e.g. `ADD R1, MEM[200]`
+- indirect addresses e.g. `ADD R1, @A`
+- immediate values e.g. `ADD R1, 73`
+
+#### Memory-mapped Input/Output
+
+One of the techniques for doing IO is called a memory mapping. Some partition of memory is reserved by specific I/O devices such as a keyboard or a display.
+
+#### Implementing assembly programs
+
+In order to make my code more readable, I grouped related things under aliases which acts as titles. There are names as `ADD_TO_ACCUMULATOR` or `CHECK_IF_BOARD_IS_FILLED` which documents code. Also, at the beginning of each and every program, I added a section with definition of constants and variables (separately) - it allows for better split between data and logic.
+
+Multiplication by its mathematical definition is a repetitive addition, so the program is not complicated. I've struggled more will filling the screen. I had had 30 lines of logic for painting desktop white and 30 lines for painting it black. The problem was a code repetition, as those 30 lines have 29 lines in common. I've managed to remove duplication be entering a new variable called `color_to_fill`.
+
+</details>

@@ -8,7 +8,7 @@ fn main() {
         (*ref_to_string).push_str("| with dereferencing");
 
         // Question 2
-        let s = ref_to_string.to_owned();
+        let _s = ref_to_string.to_owned();
         // let q = *ref_to_string; // <- cannot do a dereference
     }
 

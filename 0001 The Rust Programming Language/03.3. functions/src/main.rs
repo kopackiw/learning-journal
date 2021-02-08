@@ -15,10 +15,10 @@ fn main() {
     println!("q: {}", q);
 }
 
-fn another_function() -> () {
+fn _another_function() -> () {
     println!("Another function.");
 }
 
-fn get_function() {
+fn _get_function() {
     // return another_function; meh :(
 }

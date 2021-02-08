@@ -19,7 +19,7 @@ fn main() {
 
     {
         struct ImportantExcerpt<'a> {
-            part: &'a str,
+            _part: &'a str,
         }
 
         let novel = String::from("Call me Ishmael. Some years ago...");
@@ -29,8 +29,8 @@ fn main() {
             first_sentence = novel.split('.').next().expect("Could not find a '.'");
         }
 
-        let i = ImportantExcerpt {
-            part: first_sentence,
+        let _i = ImportantExcerpt {
+            _part: first_sentence,
         };
     }
 }

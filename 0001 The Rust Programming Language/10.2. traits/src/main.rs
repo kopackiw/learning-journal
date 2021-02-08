@@ -7,10 +7,10 @@ trait Summary {
 }
 
 struct NewsArticle {
-    headline: String,
-    location: String,
+    _headline: String,
+    _location: String,
     author: String,
-    content: String,
+    _content: String,
 }
 
 impl Summary for NewsArticle {
@@ -22,8 +22,8 @@ impl Summary for NewsArticle {
 struct Tweet {
     username: String,
     content: String,
-    reply: bool,
-    retweet: bool,
+    _reply: bool,
+    _retweet: bool,
 }
 
 impl Summary for Tweet {
@@ -36,15 +36,15 @@ impl Summary for Tweet {
     }
 }
 
-fn notify1(item: &impl Summary) {
+fn _notify1(item: &impl Summary) {
     println!("Breaking news! {}", item.summarize());
 }
 
-fn notify2<T: Summary>(item: &T) {
+fn _notify2<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
 
-fn notify3<T>(item: &T)
+fn _notify3<T>(item: &T)
 where
     T: Summary,
 {
@@ -55,17 +55,17 @@ fn main() {
     let tweet = Tweet {
         username: String::from("horse_ebooks"),
         content: String::from("of course, as you probably already know, people"),
-        reply: false,
-        retweet: false,
+        _reply: false,
+        _retweet: false,
     };
 
     println!("1 new tweet: {}", tweet.summarize());
 
     let article = NewsArticle {
-        headline: String::from("Penguins win the Stanley Cup Championship!"),
-        location: String::from("Pittsburgh, PA, USA"),
+        _headline: String::from("Penguins win the Stanley Cup Championship!"),
+        _location: String::from("Pittsburgh, PA, USA"),
         author: String::from("Iceburgh"),
-        content: String::from(
+        _content: String::from(
             "The Pittsburgh Penguins once again are the best hockey team in the NHL.",
         ),
     };

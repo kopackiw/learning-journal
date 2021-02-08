@@ -16,7 +16,7 @@ fn main() {
                 (self.x.powi(2) + self.y.powi(2)).sqrt()
             }
         }
-        let integer = Point { x: 5, y: 10 };
+        let _integer = Point { x: 5, y: 10 };
         let float = Point { x: 1.0, y: 4.0 };
         let char = Point { x: 'x', y: 'y' };
 

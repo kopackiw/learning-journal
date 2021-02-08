@@ -11,7 +11,7 @@ impl IpAddress {
 }
 
 fn main() {
-  let home = IpAddress::V4(127, 0, 0, 1);
+  let _home = IpAddress::V4(127, 0, 0, 1);
 
   let loopback = IpAddress::V6(String::from("::1"));
 
@@ -19,7 +19,7 @@ fn main() {
 
   let a = Some(5);
 
-  let q = match a {
+  let _q = match a {
     Some(1) => 1,
     Some(_) => 5,
     None => 0,

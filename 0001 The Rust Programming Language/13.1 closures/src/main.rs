@@ -44,7 +44,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
         num
     });
 
-    let mut expensive_closure_2 = Cacher::new(|string_slice: &String| {
+    let mut _expensive_closure_2 = Cacher::new(|string_slice: &String| {
         println!("calculating slowly...");
         thread::sleep(Duration::from_secs(2));
         string_slice.chars().count()
@@ -73,7 +73,7 @@ mod tests {
     fn call_with_different_values() {
         let mut c = Cacher::new(|a| a);
 
-        let v1 = c.value(1);
+        c.value(1);
         let v2 = c.value(2);
 
         assert_eq!(v2, 2);

@@ -115,3 +115,43 @@ Asymmetric cryptography introduces private and public keys. Public keys allow to
 Although asymmetric encryption is more secure than a symmetric one, it is also more inefficient. Thus, a hybrid approach exist: use asymmetric cryptography to establish a secure channel of communication, share keys for symmetric cryptography and then use them for further communicating through an insecure channel.
 
 </details>
+
+### 3. Intro to hashing
+
+To the cash through a hash :D
+
+<details>
+   <summary>What is hashing?</summary>
+
+#### What is hashing?
+
+A one-way function is a function _y = f(x)_ where, given _y_, it is computationally infeasible to calculate _x_, but given _x_, it is possible to calculate _y_.
+
+Hash is an example of a one-way function\* that take an some data and returns an fixed-length unique\*\* value representing it.
+
+\* - no one can prove that specific algorithm is one-way, it's rather the trust convention
+\*\* - may not be unique, but it is _highly_ unlikely
+
+</details>
+
+<details>
+   <summary>Collisions</summary>
+
+#### Collisions
+
+As mention in the subchapter above, two different strings can be hashed to the same result. This situation is called a collision. Although a hashing function which is collision-free does not exists, it is extremely hard to "produce" this situation.
+
+</details>
+
+<details>
+   <summary>Good vs bad hashing</summary>
+
+#### Good vs bad hashing
+
+There are some rules that good hashing function must meet:
+
+1. collision-resistant - summed up above
+2. hiding - there is no way to "reverse engineering" the algorithm (no clear correspondence with change in the message to a change in the output)
+3. puzzle friendliness - no shortcuts, only brute force attacks are possible
+
+</details>

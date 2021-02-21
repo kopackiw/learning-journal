@@ -76,3 +76,42 @@ With a consensus that the largest proof of work is a leading ledger, there is no
 Bitcoin is limited to only 21 millions of coins and has a mechanism of halving (every 210,000 block mined the reward is cut in half). When all coins will be mined, the miners will be paid from transaction fees only.
 
 </details>
+
+### 2. Public key cryptography
+
+_Crypto_ in cryptocurrency stands for cryptography!
+
+<details>
+   <summary>Symmetric cryptography</summary>
+
+#### Symmetric cryptography
+
+Symmetric cryptography assume, that two users which want to communicate, encrypt their data using encryption algorithm with shared key K. After receiving an encrypted message, they would receive an original text with decryption algorithm with the shared key K.
+
+##### Authentication
+
+It is possible to enable authentication method to prove data integrity send over insecure channel. One approach is to use a message authentication code (MAC or a tag) which is generated based on key K and message M and are sent altogether with message. If the receiver run the same tag generation algorithm with K and M and obtain a different tag, it implies that message was malformed.
+
+##### Problems with this approach
+
+If both keys should be shared and known only to these two users, how they can establish a secure channel where they can agree on the keys? The question is more important in the Internet era, where these end users may not know each one.
+
+</details>
+
+<details>
+   <summary>Asymmetric cryptography</summary>
+
+#### Asymmetric cryptography
+
+Asymmetric cryptography introduces private and public keys. Public keys allow to encrypt the message - anyone who sends the message can do it. To decrypt it, one must hold a private keys matched for the used public key. It is a one person well hidden secret.
+
+</details>
+
+<details>
+   <summary>Summary</summary>
+
+#### Summary
+
+Although asymmetric encryption is more secure than a symmetric one, it is also more inefficient. Thus, a hybrid approach exist: use asymmetric cryptography to establish a secure channel of communication, share keys for symmetric cryptography and then use them for further communicating through an insecure channel.
+
+</details>
